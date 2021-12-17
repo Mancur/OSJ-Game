@@ -11,8 +11,10 @@ public class oneScriptToRuleThemAll : MonoBehaviour
     public float movementSpeed = 10f;
     public float jumpForce = 1f;
     private Rigidbody2D rb;
+    public Animator animator;
     private float movementX = 0;
     public bool isGrounded = false;
+    private bool lookingRight = true;
     //unlocked controls:
     [SerializeField] private bool right_unlocked = true;
     [SerializeField] private bool left_unlocked = false;
@@ -35,6 +37,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour
         if (gameObject.CompareTag("Player"))
         {
             rb = GetComponent<Rigidbody2D>();
+            animator = GetComponent<Animator>();
         }
     }
 
@@ -42,6 +45,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour
     {
         if (gameObject.CompareTag("Player"))
         {
+            AnimatorDependencies();
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (isPaused)
@@ -85,17 +89,46 @@ public class oneScriptToRuleThemAll : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector2(movementX * Time.fixedDeltaTime * movementSpeed, rb.velocity.y);
+        movementX = movementX * Time.fixedDeltaTime * movementSpeed;
+        FlipSprite();
+        rb.velocity = new Vector2(movementX, rb.velocity.y);
+    }
+
+    private void AnimatorDependencies()
+    {
+        animator.SetFloat("YVelocity", rb.velocity.y);
+        if (rb.velocity.y <= 0)
+        {
+            animator.SetBool("Jump", false);
+        }
+        animator.SetBool("Grounded", isGrounded);
+    }
+
+    private void FlipSprite()
+    {
+        animator.SetFloat("Speed", Mathf.Abs(movementX));
+        if (movementX < 0 && lookingRight)
+        {
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            lookingRight = false;
+        }
+        else if (movementX >= 0 && !lookingRight)
+        {
+            transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+            lookingRight = true;
+        }
     }
 
     private void jump()
     {
         Vector2 jumpSpeed = new Vector2(0f, jumpForce);
+        animator.SetBool("Jump", true);
         rb.AddForce(jumpSpeed, ForceMode2D.Force);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.tag + gameObject.name);
         if (gameObject.CompareTag("Player"))
         {
             if (collision.CompareTag("Key"))

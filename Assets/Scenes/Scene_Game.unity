@@ -123,6 +123,72 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &137680212 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6896736269602710321, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+  m_PrefabInstance: {fileID: 6896736269235114217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &137680217
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137680212}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &598128701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 598128701, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+  m_PrefabInstance: {fileID: 6896736269235114217}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &598128704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598128701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1f13df3fa347744847b4c887b85396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1858831152}
+  movementSpeed: 10
+  jumpForce: 1
+  isGrounded: 0
+  right_unlocked: 1
+  left_unlocked: 0
+  jump_unlocked: 0
+  keyType: 
+  cam: {fileID: 0}
+  playerToFollow: {fileID: 0}
+  camereVerticalOffset: 3
+  pauseMenu: {fileID: 0}
+--- !u!114 &1858831152 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6896736269581157443, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+  m_PrefabInstance: {fileID: 6896736269235114217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1f13df3fa347744847b4c887b85396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6896736269235114217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,21 +196,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1906512595453128970, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
-      propertyPath: m_Name
-      value: RestartButton
+    - target: {fileID: 598128701, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_TagString
+      value: groundChecker
       objectReference: {fileID: 0}
-    - target: {fileID: 3311152605201807904, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 598128703, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_Size.x
+      value: 1.237109
       objectReference: {fileID: 0}
-    - target: {fileID: 4152727199972751595, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Quit
+    - target: {fileID: 598128703, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9683948
       objectReference: {fileID: 0}
-    - target: {fileID: 6307913432184399863, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 598128703, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.08105448
+      objectReference: {fileID: 0}
+    - target: {fileID: 598128703, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.71414626
       objectReference: {fileID: 0}
     - target: {fileID: 6896736268576982984, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
       propertyPath: m_Name
@@ -194,9 +264,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7947127920918923019, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
-      propertyPath: m_text
-      value: Restart
+    - target: {fileID: 6896736269581157443, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: jumpForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896736269581157443, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: jump_unlocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6896736269581157443, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: left_unlocked
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
