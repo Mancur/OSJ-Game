@@ -7,6 +7,9 @@ TagManager:
   - groundChecker
   - Platform
   - Key
+  - KeyUI
+  - PauseMenuCanvas
+  - KeyHole
   layers:
   - Default
   - TransparentFX

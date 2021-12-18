@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.EventSystems;
 
-public class oneScriptToRuleThemAll : MonoBehaviour
+public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     [Header("Player")]
     public oneScriptToRuleThemAll player;
@@ -16,12 +18,21 @@ public class oneScriptToRuleThemAll : MonoBehaviour
     public bool isGrounded = false;
     private bool lookingRight = true;
     //unlocked controls:
+    [SerializeField] private oneScriptToRuleThemAll leftKeyhole;
+    [SerializeField] private oneScriptToRuleThemAll rightKeyhole;
+    [SerializeField] private oneScriptToRuleThemAll jumpKeyhole;
     [SerializeField] private bool right_unlocked = true;
     [SerializeField] private bool left_unlocked = false;
     [SerializeField] private bool jump_unlocked = false;
 
     [Header("Keys")]
     public string keyType;
+    public GameObject keyParent;
+    public TextMeshProUGUI keyText;
+    public GameObject keyUI;
+    public RectTransform rectTransform;
+    public Canvas canvas;
+    public CanvasGroup canvasGroup;
 
     [Header("Camera")]
     public Transform cam;
@@ -39,12 +50,26 @@ public class oneScriptToRuleThemAll : MonoBehaviour
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
         }
+        if (gameObject.CompareTag("Key"))
+        {
+            keyText = GetComponentInChildren<TextMeshProUGUI>();
+            keyText.text = keyType;
+        }
+        if (gameObject.CompareTag("KeyUI"))
+        {
+            keyText = GetComponentInChildren<TextMeshProUGUI>();
+            keyText.text = keyType;
+            rectTransform = GetComponent<RectTransform>();
+            canvas = GameObject.FindGameObjectWithTag("PauseMenuCanvas").GetComponent<Canvas>();
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
     }
 
     private void Update()
     {
         if (gameObject.CompareTag("Player"))
         {
+            CheckUnlocked();
             AnimatorDependencies();
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -58,17 +83,26 @@ public class oneScriptToRuleThemAll : MonoBehaviour
                 }
             }
             movementX = 0;
-            if (Input.GetKey(KeyCode.D) && right_unlocked)
+            if (right_unlocked)
             {
-                movementX = 1;
+                if (Input.GetKey(rightKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    movementX = 1;
+                }
             }
-            if (Input.GetKey(KeyCode.A) && left_unlocked)
+            if (left_unlocked)
             {
-                movementX = -1;
+                if (Input.GetKey(leftKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    movementX = -1;
+                }
             }
-            if (Input.GetKey(KeyCode.W) && jump_unlocked && isGrounded)
+            if (jump_unlocked && isGrounded)
             {
-                jump();
+                if (Input.GetKeyDown(jumpKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    jump();
+                }
             }
 
             Move();
@@ -76,6 +110,34 @@ public class oneScriptToRuleThemAll : MonoBehaviour
         if (gameObject.CompareTag("MainCamera"))
         {
             transform.position = new Vector3(playerToFollow.position.x, playerToFollow.position.y + camereVerticalOffset, -10);
+        }
+    }
+
+    private void CheckUnlocked()
+    {
+        if (leftKeyhole.keyUI != null)
+        {
+            left_unlocked = true;
+        }
+        else
+        {
+            left_unlocked = false;
+        }
+        if (rightKeyhole.keyUI != null)
+        {
+            right_unlocked = true;
+        }
+        else
+        {
+            right_unlocked = false;
+        }
+        if (jumpKeyhole.keyUI != null)
+        {
+            jump_unlocked = true;
+        }
+        else
+        {
+            jump_unlocked = false;
         }
     }
 
@@ -128,12 +190,12 @@ public class oneScriptToRuleThemAll : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.tag + gameObject.name);
+        Debug.Log("gameobject name: " + gameObject.name + " collision name: " + collision.name);
         if (gameObject.CompareTag("Player"))
         {
             if (collision.CompareTag("Key"))
             {
-                addKey();
+                addKey(collision.GetComponent<oneScriptToRuleThemAll>());
                 Destroy(collision.gameObject);
             }
         }
@@ -146,6 +208,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour
         }
     }
 
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (gameObject.CompareTag("groundChecker"))
@@ -157,9 +220,12 @@ public class oneScriptToRuleThemAll : MonoBehaviour
         }
     }
 
-    private void addKey()
+    private void addKey(oneScriptToRuleThemAll script)
     {
-
+        GameObject go = Instantiate(keyUI);
+        go.transform.SetParent(keyParent.transform);
+        go.GetComponent<oneScriptToRuleThemAll>().keyType = script.keyType;
+        go.GetComponent<RectTransform>().anchoredPosition = keyParent.GetComponent<RectTransform>().anchoredPosition;
     }
 
     //Menu functions
@@ -192,5 +258,49 @@ public class oneScriptToRuleThemAll : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (gameObject.CompareTag("KeyUI"))
+        {
+            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        }
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (gameObject.CompareTag("KeyHole"))
+        {
+            if(eventData.pointerDrag != null)
+            {
+                eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+                keyUI = eventData.pointerDrag;
+                eventData.pointerDrag.GetComponent<oneScriptToRuleThemAll>().keyParent = gameObject;
+            }
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (gameObject.CompareTag("KeyUI"))
+        {
+            if (keyParent != null)
+            {
+                keyParent.GetComponent<oneScriptToRuleThemAll>().keyUI = null;
+                keyParent = null;
+            }
+            canvasGroup.alpha = 0.6f;
+            canvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (gameObject.CompareTag("KeyUI"))
+        {
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
+        }
     }
 }
