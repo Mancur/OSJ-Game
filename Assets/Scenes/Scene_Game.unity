@@ -422,7 +422,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1201204203, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
   m_PrefabInstance: {fileID: 6896736269235114217}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &1201204204
+--- !u!225 &1201204207
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -439,7 +439,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1409633886, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
   m_PrefabInstance: {fileID: 6896736269235114217}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &1409633887
+--- !u!225 &1409633890
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1428163539, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
   m_PrefabInstance: {fileID: 6896736269235114217}
   m_PrefabAsset: {fileID: 0}
---- !u!225 &1428163540
+--- !u!225 &1428163543
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -823,5 +823,9 @@ PrefabInstance:
       propertyPath: rightKeyhole
       value: 
       objectReference: {fileID: 23497756}
+    - target: {fileID: 7588037828197673768, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}

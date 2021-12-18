@@ -174,7 +174,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             lookingRight = false;
         }
-        else if (movementX >= 0 && !lookingRight)
+        else if (movementX > 0 && !lookingRight)
         {
             transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
             lookingRight = true;
@@ -274,9 +274,12 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         {
             if(eventData.pointerDrag != null)
             {
-                eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-                keyUI = eventData.pointerDrag;
-                eventData.pointerDrag.GetComponent<oneScriptToRuleThemAll>().keyParent = gameObject;
+                if (eventData.pointerDrag.transform.CompareTag("KeyUI"))
+                {
+                    eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+                    keyUI = eventData.pointerDrag;
+                    eventData.pointerDrag.GetComponent<oneScriptToRuleThemAll>().keyParent = gameObject;
+                }
             }
         }
     }
