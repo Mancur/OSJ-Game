@@ -90,10 +90,6 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         if (gameObject.CompareTag("MainMenu"))
         {
             Debug.Log(Time.realtimeSinceStartup);
-            if (Time.realtimeSinceStartup <= 7)
-            {
-                PlayerPrefs.DeleteKey("levelReached");
-            }
             int levelReached = PlayerPrefs.GetInt("levelReached", 1);
             Button[] buttons = levels.GetComponentsInChildren<Button>();
             for (int i = 0; i < buttons.Length; i++)

@@ -302,6 +302,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   movementSpeed: 10
+  onPlatformMovementSpeed: 3
+  cachedMovementSpeed: 10
   jumpForce: 1
   animator: {fileID: 0}
   isGrounded: 0
@@ -334,7 +336,7 @@ MonoBehaviour:
   levels: {fileID: 0}
   pos1: {fileID: 8091550793848967436}
   pos2: {fileID: 8091550792084370360}
-  platformSpeed: 2
+  platformSpeed: 3
   playerParent: {fileID: 0}
   playerTransform: {fileID: 0}
   jumpSFX: {fileID: 0}
