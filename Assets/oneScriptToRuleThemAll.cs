@@ -34,6 +34,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     public RectTransform rectTransform;
     public Canvas canvas;
     public CanvasGroup canvasGroup;
+    public bool willBeDestroyed = false;
 
     [Header("Camera")]
     public Transform cam;
@@ -46,6 +47,14 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     public GameObject lostMenu;
     private bool isPaused;
     public GameObject levels;
+
+    [Header("Platfrom")]
+    public Transform pos1;
+    public Transform pos2;
+    public float platformSpeed;
+    private Vector2 nextPos;
+    public GameObject playerParent;
+    public Transform playerTransform;
 
     private void Start()
     {
@@ -84,6 +93,10 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
                 }
             }
         }
+        if (gameObject.CompareTag("MovingPlatform"))
+        {
+            nextPos = pos1.position;
+        }
     }
 
     private void Update()
@@ -96,9 +109,13 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
 
             Move();
         }
-        if (gameObject.CompareTag("MainCamera"))
+        else if (gameObject.CompareTag("MainCamera"))
         {
             transform.position = new Vector3(playerToFollow.position.x, playerToFollow.position.y + camereVerticalOffset, -10);
+        }
+        else if (gameObject.CompareTag("MovingPlatform"))
+        {
+            OscillatePlatform();
         }
     }
 
@@ -108,8 +125,13 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         {
             if (collision.CompareTag("Key"))
             {
-                addKey(collision.GetComponent<oneScriptToRuleThemAll>());
-                Destroy(collision.gameObject);
+                oneScriptToRuleThemAll script = collision.GetComponent<oneScriptToRuleThemAll>();
+                if (!script.willBeDestroyed)
+                {
+                    addKey(script);
+                    script.willBeDestroyed = true;
+                    Destroy(collision.gameObject);
+                }
             }
             if (collision.CompareTag("Spike"))
             {
@@ -139,6 +161,28 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             }
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            if (collision.transform.CompareTag("MovingPlatform"))
+            {
+                transform.parent = collision.transform;
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            if (collision.transform.CompareTag("MovingPlatform"))
+            {
+                transform.parent = playerParent.transform;
+            }
+        }
+    }
+
 
     #region Player Functions
     private void GetPlayerInput()
@@ -360,5 +404,22 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             canvasGroup.blocksRaycasts = true;
         }
     }
+    #endregion
+
+    #region Platform
+
+    private void OscillatePlatform()
+    {
+        if (Vector2.Distance(transform.position, pos1.position) <= 1)
+        {
+            nextPos = pos2.position;
+        }
+        else if (Vector2.Distance(transform.position, pos2.position) <= 1)
+        {
+            nextPos = pos1.position;
+        }
+        transform.position = Vector2.MoveTowards(transform.position, nextPos, Time.deltaTime * platformSpeed);
+    }
+
     #endregion
 }
