@@ -13,6 +13,7 @@ TagManager:
   - Spike
   - Win
   - MainMenu
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
