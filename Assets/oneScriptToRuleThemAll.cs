@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
@@ -41,7 +42,10 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
 
     [Header("Menu")]
     public GameObject pauseMenu;
+    public GameObject wonMenu;
+    public GameObject lostMenu;
     private bool isPaused;
+    public GameObject levels;
 
     private void Start()
     {
@@ -62,6 +66,23 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             rectTransform = GetComponent<RectTransform>();
             canvas = GameObject.FindGameObjectWithTag("PauseMenuCanvas").GetComponent<Canvas>();
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+        if (gameObject.CompareTag("MainMenu"))
+        {
+            Debug.Log(Time.realtimeSinceStartup);
+            if (Time.realtimeSinceStartup <= 7)
+            {
+                PlayerPrefs.DeleteKey("levelReached");
+            }
+            int levelReached = PlayerPrefs.GetInt("levelReached", 1);
+            Button[] buttons = levels.GetComponentsInChildren<Button>();
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (i >= levelReached)
+                {
+                    buttons[i].interactable = false;
+                }
+            }
         }
     }
 
@@ -92,7 +113,11 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             }
             if (collision.CompareTag("Spike"))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                LevelLost();
+            }
+            if (collision.CompareTag("Win"))
+            {
+                LevelWon();
             }
         }
         if (gameObject.CompareTag("groundChecker"))
@@ -230,6 +255,20 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         isPaused = true;
     }
 
+    private void LevelWon()
+    {
+        Debug.Log(SceneManager.GetActiveScene().buildIndex + 1, this);
+        PlayerPrefs.SetInt("levelReached", SceneManager.GetActiveScene().buildIndex + 2);
+        wonMenu.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    private void LevelLost()
+    {
+        lostMenu.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
@@ -239,7 +278,20 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene(SceneManager.sceneCount - 1);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
+    }
+    
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void LoadLevel(int levelIndex)

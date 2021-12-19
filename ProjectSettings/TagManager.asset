@@ -11,6 +11,8 @@ TagManager:
   - PauseMenuCanvas
   - KeyHole
   - Spike
+  - Win
+  - MainMenu
   layers:
   - Default
   - TransparentFX

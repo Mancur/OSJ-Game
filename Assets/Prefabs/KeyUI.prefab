@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -229,6 +229,9 @@ MonoBehaviour:
   jumpForce: 1
   animator: {fileID: 0}
   isGrounded: 0
+  leftKeyhole: {fileID: 0}
+  rightKeyhole: {fileID: 0}
+  jumpKeyhole: {fileID: 0}
   right_unlocked: 1
   left_unlocked: 0
   jump_unlocked: 0
@@ -238,10 +241,14 @@ MonoBehaviour:
   keyUI: {fileID: 0}
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
+  canvasGroup: {fileID: 0}
   cam: {fileID: 0}
   playerToFollow: {fileID: 0}
   camereVerticalOffset: 3
   pauseMenu: {fileID: 0}
+  wonMenu: {fileID: 0}
+  lostMenu: {fileID: 0}
+  levels: {fileID: 0}
 --- !u!225 &8048352349439007548
 CanvasGroup:
   m_ObjectHideFlags: 0
