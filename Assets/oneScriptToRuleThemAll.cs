@@ -69,41 +69,9 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     {
         if (gameObject.CompareTag("Player"))
         {
-            CheckUnlocked();
+            CheckUnlockedFunctions();
             AnimatorDependencies();
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (isPaused)
-                {
-                    ResumeGame();
-                }
-                else
-                {
-                    PauseGame();
-                }
-            }
-            movementX = 0;
-            if (right_unlocked)
-            {
-                if (Input.GetKey(rightKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
-                {
-                    movementX = 1;
-                }
-            }
-            if (left_unlocked)
-            {
-                if (Input.GetKey(leftKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
-                {
-                    movementX = -1;
-                }
-            }
-            if (jump_unlocked && isGrounded)
-            {
-                if (Input.GetKeyDown(jumpKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
-                {
-                    jump();
-                }
-            }
+            GetPlayerInput();
 
             Move();
         }
@@ -113,7 +81,79 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         }
     }
 
-    private void CheckUnlocked()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            if (collision.CompareTag("Key"))
+            {
+                addKey(collision.GetComponent<oneScriptToRuleThemAll>());
+                Destroy(collision.gameObject);
+            }
+            if (collision.CompareTag("Spike"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+        }
+        if (gameObject.CompareTag("groundChecker"))
+        {
+            if (collision.CompareTag("Platform"))
+            {
+                player.isGrounded = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (gameObject.CompareTag("groundChecker"))
+        {
+            if (collision.CompareTag("Platform"))
+            {
+                player.isGrounded = false;
+            }
+        }
+    }
+
+    #region Player Functions
+    private void GetPlayerInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                ResumeGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
+        movementX = 0;
+        if (right_unlocked)
+        {
+            if (Input.GetKey(rightKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            {
+                movementX = 1;
+            }
+        }
+        if (left_unlocked)
+        {
+            if (Input.GetKey(leftKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            {
+                movementX = -1;
+            }
+        }
+        if (jump_unlocked && isGrounded)
+        {
+            if (Input.GetKeyDown(jumpKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            {
+                jump();
+            }
+        }
+    }
+
+    private void CheckUnlockedFunctions()
     {
         if (leftKeyhole.keyUI != null)
         {
@@ -141,13 +181,6 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (gameObject.CompareTag("Player"))
-        {
-
-        }
-    }
 
     private void Move()
     {
@@ -187,49 +220,9 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         animator.SetBool("Jump", true);
         rb.AddForce(jumpSpeed, ForceMode2D.Force);
     }
+    #endregion
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("gameobject name: " + gameObject.name + " collision name: " + collision.name);
-        if (gameObject.CompareTag("Player"))
-        {
-            if (collision.CompareTag("Key"))
-            {
-                addKey(collision.GetComponent<oneScriptToRuleThemAll>());
-                Destroy(collision.gameObject);
-            }
-        }
-        if (gameObject.CompareTag("groundChecker"))
-        {
-            if (collision.CompareTag("Platform"))
-            {
-                player.isGrounded = true;
-            }
-        }
-    }
-
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (gameObject.CompareTag("groundChecker"))
-        {
-            if (collision.CompareTag("Platform"))
-            {
-                player.isGrounded = false;
-            }
-        }
-    }
-
-    private void addKey(oneScriptToRuleThemAll script)
-    {
-        GameObject go = Instantiate(keyUI);
-        go.transform.SetParent(keyParent.transform);
-        go.GetComponent<oneScriptToRuleThemAll>().keyType = script.keyType;
-        go.GetComponent<RectTransform>().anchoredPosition = keyParent.GetComponent<RectTransform>().anchoredPosition;
-    }
-
-    //Menu functions
-
+    #region Menu functions
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
@@ -246,20 +239,29 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.sceneCount - 1);
     }
 
-    public void LoadGame()
+    public void LoadLevel(int levelIndex)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(levelIndex);
     }
 
     public void Quit()
     {
         Application.Quit();
     }
+    #endregion
 
+    #region Key drag and drop functions
+    private void addKey(oneScriptToRuleThemAll script)
+    {
+        GameObject go = Instantiate(keyUI);
+        go.transform.SetParent(keyParent.transform);
+        go.GetComponent<oneScriptToRuleThemAll>().keyType = script.keyType;
+        go.GetComponent<RectTransform>().anchoredPosition = keyParent.GetComponent<RectTransform>().anchoredPosition;
+    }
     public void OnDrag(PointerEventData eventData)
     {
         if (gameObject.CompareTag("KeyUI"))
@@ -306,4 +308,5 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             canvasGroup.blocksRaycasts = true;
         }
     }
+    #endregion
 }

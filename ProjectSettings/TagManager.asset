@@ -10,6 +10,7 @@ TagManager:
   - KeyUI
   - PauseMenuCanvas
   - KeyHole
+  - Spike
   layers:
   - Default
   - TransparentFX
