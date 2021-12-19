@@ -12,6 +12,8 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     [Header("Player")]
     public oneScriptToRuleThemAll player;
     public float movementSpeed = 10f;
+    public float onPlatformMovementSpeed = 3;
+    public float cachedMovementSpeed = 10f;
     public float jumpForce = 1f;
     private Rigidbody2D rb;
     public Animator animator;
@@ -70,6 +72,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
+            cachedMovementSpeed = movementSpeed;
         }
         if (gameObject.CompareTag("Key"))
         {
@@ -150,6 +153,10 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
                 LevelWon();
             }
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if (gameObject.CompareTag("groundChecker"))
         {
             if (collision.CompareTag("Platform"))
@@ -177,9 +184,23 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             if (collision.transform.CompareTag("MovingPlatform"))
             {
                 transform.parent = collision.transform;
+                isGrounded = true;
+                movementSpeed = onPlatformMovementSpeed;
             }
         }
     }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (gameObject.CompareTag("Player"))
+        {
+            if (collision.transform.CompareTag("MovingPlatform"))
+            {
+                isGrounded = true;
+            }
+        }
+    }
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (gameObject.CompareTag("Player"))
@@ -187,6 +208,8 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             if (collision.transform.CompareTag("MovingPlatform"))
             {
                 transform.parent = playerParent.transform;
+                isGrounded = false;
+                movementSpeed = cachedMovementSpeed;
             }
         }
     }

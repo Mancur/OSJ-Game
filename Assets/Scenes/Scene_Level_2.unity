@@ -170,6 +170,70 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].x
+      value: 23.999971
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[0].y
+      value: -5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].x
+      value: 23.999971
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[1].y
+      value: -4.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[2].y
+      value: -4.1000295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].x
+      value: 20.000029
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_CompositePaths.m_Paths.Array.data[0].Array.data[3].y
+      value: -5.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].X
+      value: 200000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[0].Y
+      value: -51000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].X
+      value: 240000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[1].Y
+      value: -51000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].X
+      value: 240000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[2].Y
+      value: -41000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].X
+      value: 200000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823898021286096716, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
+      propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
+      value: -41000000
+      objectReference: {fileID: 0}
     - target: {fileID: 5353469374575847578, guid: 635425dd46b517847ae77e5d9de8edcc, type: 3}
       propertyPath: m_IsActive
       value: 0
