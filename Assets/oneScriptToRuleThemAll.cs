@@ -18,6 +18,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     private float movementX = 0;
     public bool isGrounded = false;
     private bool lookingRight = true;
+
     //unlocked controls:
     [SerializeField] private oneScriptToRuleThemAll leftKeyhole;
     [SerializeField] private oneScriptToRuleThemAll rightKeyhole;
@@ -35,6 +36,8 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     public Canvas canvas;
     public CanvasGroup canvasGroup;
     public bool willBeDestroyed = false;
+    public Transform[] inventorySlots = new Transform[5];
+    private oneScriptToRuleThemAll[] keysInInventory = new oneScriptToRuleThemAll[5];
 
     [Header("Camera")]
     public Transform cam;
@@ -55,6 +58,11 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     private Vector2 nextPos;
     public GameObject playerParent;
     public Transform playerTransform;
+
+    [Header("General Audio")]
+    public AudioSource jumpSFX;
+    public AudioSource bgm;
+    public AudioSource deathSound;
 
     private void Start()
     {
@@ -183,7 +191,6 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         }
     }
 
-
     #region Player Functions
     private void GetPlayerInput()
     {
@@ -198,26 +205,29 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
                 PauseGame();
             }
         }
-        movementX = 0;
-        if (right_unlocked)
+        if(!isPaused)
         {
-            if (Input.GetKey(rightKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            movementX = 0;
+            if (right_unlocked)
             {
-                movementX = 1;
+                if (Input.GetKey(rightKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    movementX = 1;
+                }
             }
-        }
-        if (left_unlocked)
-        {
-            if (Input.GetKey(leftKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            if (left_unlocked)
             {
-                movementX = -1;
+                if (Input.GetKey(leftKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    movementX = -1;
+                }
             }
-        }
-        if (jump_unlocked && isGrounded)
-        {
-            if (Input.GetKeyDown(jumpKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+            if (jump_unlocked && isGrounded)
             {
-                jump();
+                if (Input.GetKeyDown(jumpKeyhole.keyUI.GetComponent<oneScriptToRuleThemAll>().keyType))
+                {
+                    jump();
+                }
             }
         }
     }
@@ -249,7 +259,6 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
             jump_unlocked = false;
         }
     }
-
 
     private void Move()
     {
@@ -288,6 +297,8 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         Vector2 jumpSpeed = new Vector2(0f, jumpForce);
         animator.SetBool("Jump", true);
         rb.AddForce(jumpSpeed, ForceMode2D.Force);
+
+        jumpSFX.Play();
     }
     #endregion
 
@@ -295,7 +306,6 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
         isPaused = true;
     }
 
@@ -311,12 +321,13 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     {
         lostMenu.SetActive(true);
         Time.timeScale = 0f;
+        bgm.Pause();
+        deathSound.Play();
     }
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
-        Time.timeScale = 1;
         isPaused = false;
     }
 
@@ -351,13 +362,28 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     #endregion
 
     #region Key drag and drop functions
+    public Vector3 addToInventory()
+    {
+        int i = 0;
+        foreach (oneScriptToRuleThemAll slot in keysInInventory)
+        {
+            if(slot == null)
+            {
+                return inventorySlots[i].position;
+            }
+            i++;
+        }
+        return inventorySlots[i].position;
+    }
+
     private void addKey(oneScriptToRuleThemAll script)
     {
         GameObject go = Instantiate(keyUI);
         go.transform.SetParent(keyParent.transform);
+        go.transform.position = addToInventory();
         go.GetComponent<oneScriptToRuleThemAll>().keyType = script.keyType;
-        go.GetComponent<RectTransform>().anchoredPosition = keyParent.GetComponent<RectTransform>().anchoredPosition;
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         if (gameObject.CompareTag("KeyUI"))
