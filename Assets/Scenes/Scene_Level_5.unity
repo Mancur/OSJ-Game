@@ -187,6 +187,18 @@ PrefabInstance:
         that''s all the levels for now, we will add more levels
         later'
       objectReference: {fileID: 0}
+    - target: {fileID: 3886235581370218344, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 8907721850264868103}
+    - target: {fileID: 3886235581370218344, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3886235581370218344, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 49597987
+      objectReference: {fileID: 0}
     - target: {fileID: 8907721849817760292, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -237,3 +249,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
+--- !u!20 &8907721850264868103 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8907721850716450169, guid: 9945696ebc28b02499d6990e915a5c58, type: 3}
+  m_PrefabInstance: {fileID: 8907721850264868102}
+  m_PrefabAsset: {fileID: 0}

@@ -163,7 +163,7 @@ RectTransform:
   m_GameObject: {fileID: 1454142919724120887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.008474576, y: 0.008474576, z: 0.008474576}
   m_Children:
   - {fileID: 1454142919143693220}
   m_Father: {fileID: 0}
@@ -226,6 +226,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   movementSpeed: 10
+  onPlatformMovementSpeed: 3
+  cachedMovementSpeed: 10
   jumpForce: 1
   animator: {fileID: 0}
   isGrounded: 0
@@ -242,6 +244,13 @@ MonoBehaviour:
   rectTransform: {fileID: 0}
   canvas: {fileID: 0}
   canvasGroup: {fileID: 0}
+  willBeDestroyed: 0
+  inventorySlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   cam: {fileID: 0}
   playerToFollow: {fileID: 0}
   camereVerticalOffset: 3
@@ -249,6 +258,14 @@ MonoBehaviour:
   wonMenu: {fileID: 0}
   lostMenu: {fileID: 0}
   levels: {fileID: 0}
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
+  platformSpeed: 0
+  playerParent: {fileID: 0}
+  playerTransform: {fileID: 0}
+  jumpSFX: {fileID: 0}
+  bgm: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!225 &8048352349439007548
 CanvasGroup:
   m_ObjectHideFlags: 0

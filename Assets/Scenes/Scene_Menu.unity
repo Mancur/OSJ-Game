@@ -687,6 +687,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1152102103531994830, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2100863231074076636}
+    - target: {fileID: 1152102103531994830, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152102103531994830, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 49597987
+      objectReference: {fileID: 0}
     - target: {fileID: 2100863230293932534, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -777,3 +789,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
+--- !u!20 &2100863231074076636 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2100863231350405446, guid: 5ff2f1bec3777cf45ba33f27701ab784, type: 3}
+  m_PrefabInstance: {fileID: 2100863231074076635}
+  m_PrefabAsset: {fileID: 0}

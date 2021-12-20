@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &729541021 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3469445648838648108, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}
+  m_PrefabInstance: {fileID: 3469445649005074771}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3469445649005074771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -209,6 +214,18 @@ PrefabInstance:
     - target: {fileID: 6522027594091898614, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}
       propertyPath: m_ColliderPaths.Array.data[0].m_ColliderPaths.Array.data[0].Array.data[3].Y
       value: -41000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103403325548870461, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 729541021}
+    - target: {fileID: 9103403325548870461, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9103403325548870461, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 49597987
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a6a1b20efcc6d746aeb71d632c2e2c6, type: 3}

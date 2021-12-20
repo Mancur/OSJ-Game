@@ -213,7 +213,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     #region Player Functions
     private void GetPlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
@@ -224,7 +224,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
                 PauseGame();
             }
         }
-        if(!isPaused)
+        if (!isPaused)
         {
             movementX = 0;
             if (right_unlocked)
@@ -283,7 +283,14 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     {
         movementX = movementX * Time.fixedDeltaTime * movementSpeed;
         FlipSprite();
-        rb.velocity = new Vector2(movementX, rb.velocity.y);
+        if (!isPaused)
+        {
+            rb.velocity = new Vector2(movementX, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
     }
 
     private void AnimatorDependencies()
@@ -355,7 +362,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
     }
-    
+
     public void RestartLevel()
     {
         Time.timeScale = 1f;
@@ -386,7 +393,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         int i = 0;
         foreach (oneScriptToRuleThemAll slot in keysInInventory)
         {
-            if(slot == null)
+            if (slot == null)
             {
                 return inventorySlots[i].position;
             }
@@ -400,6 +407,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
         GameObject go = Instantiate(keyUI);
         go.transform.SetParent(keyParent.transform);
         go.transform.position = addToInventory();
+        go.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         go.GetComponent<oneScriptToRuleThemAll>().keyType = script.keyType;
     }
 
@@ -415,7 +423,7 @@ public class oneScriptToRuleThemAll : MonoBehaviour, IBeginDragHandler, IEndDrag
     {
         if (gameObject.CompareTag("KeyHole"))
         {
-            if(eventData.pointerDrag != null)
+            if (eventData.pointerDrag != null)
             {
                 if (eventData.pointerDrag.transform.CompareTag("KeyUI"))
                 {

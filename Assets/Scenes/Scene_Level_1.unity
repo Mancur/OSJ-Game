@@ -178,5 +178,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level_1Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7171085466504549560, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+      propertyPath: m_text
+      value: 'Press esc or right click
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233365565327816748, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 4337794528792009283}
+    - target: {fileID: 8233365565327816748, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233365565327816748, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 49597987
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+--- !u!20 &4337794528792009283 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4337794528899654205, guid: 69a24f1f91a238e40a6575b4d32e2fdb, type: 3}
+  m_PrefabInstance: {fileID: 4337794528792009282}
+  m_PrefabAsset: {fileID: 0}
